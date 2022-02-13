@@ -23,7 +23,7 @@ enum class CardinalDirection : Direction {
     NORTH, EAST, SOUTH, WEST;
 
     companion object {
-        fun fromInt(value: Int) = CardinalDirection.values().first { it.ordinal == (value%4) }
+        fun fromInt(value: Int) = values().first { it.ordinal == (value%4) }
     }
 
     override fun toRelativePosition() : Position {

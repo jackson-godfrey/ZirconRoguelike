@@ -3,19 +3,11 @@ package main
 import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.application.AppConfig
-import org.hexworks.zircon.api.graphics.StyleSet
 
 object GameConfig {
 
     private val TILESET = CP437TilesetResources.rogueYun16x16()
     val THEME = ColorThemes.monokaiOrange()
-
-    val brainStyleSet = StyleSet.newBuilder()
-        .withForegroundColor(THEME.primaryForegroundColor)
-        .withBackgroundColor(THEME.primaryBackgroundColor)
-        .build()
-//    val brainBoxFillerTile = TileBuilder.newBuilder()
-//        .withForegroundColor(brainStyleSet.)
 
     //Sizing for the main application's window
     const val BASE_WINDOW_WIDTH = 80
@@ -47,30 +39,4 @@ object GameConfig {
 
     const val BRAIN_ITEM_WIDTH = 5
     const val BRAIN_ITEM_HEIGHT = BRAIN_ITEM_WIDTH
-
-
-
-
-}
-
-typealias Array2D<T> = Array<Array<T>>
-
-inline fun <reified T> create2DArray(width: Int, height: Int, fill: T) : Array2D<T> {
-    return Array<Array<T>>(width) { row ->
-        Array<T>(height) { col ->
-            fill
-        }
-    }
-}
-
-private fun <T> Array2D<T>.width() = this.size
-private fun <T> Array2D<T>.height() : Int{
-    return if(this.size > 1) this[0].size
-    else 0
-}
-
-fun <T> Array2D<T>.loop( block: T.(Int, Int) -> Unit ) {
-    for(x in 0 until width())
-        for(y in 0 until height())
-            block.invoke(this[x][y], x, y)
 }

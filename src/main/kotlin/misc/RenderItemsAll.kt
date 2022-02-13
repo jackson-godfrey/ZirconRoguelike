@@ -7,7 +7,7 @@ import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.view.base.BaseView
 
-fun main(args: Array<String>) {
+fun main() {
     val grid = SwingApplications.startTileGrid(
         AppConfig.newBuilder()
         //.withDefaultTileset(GameConfig.TILESET)
@@ -23,7 +23,7 @@ private class AllItemsView(
 
     init {
         val itemGrid = Array<Array<ItemBox>> (20) { row ->
-            Array<ItemBox>(13) {col ->
+            Array(13) { col ->
                 ItemBoxBuilder(BrainItemLibrary.allBrainItems.elementAtOrElse(row + col*20) { _ -> BrainItemLibrary.EmptyBrainItem })
                     .withPosition(row*5, col*5)
                     .build()

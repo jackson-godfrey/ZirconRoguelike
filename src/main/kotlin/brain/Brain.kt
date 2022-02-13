@@ -5,7 +5,6 @@ import brain.brainItems.BrainItemLibrary
 import brain.brainItems.BrainItemRenderer.Companion.render
 import main.GameConfig.BRAIN_HEIGHT
 import main.GameConfig.BRAIN_WIDTH
-import main.loop
 import org.hexworks.zircon.api.data.Position
 import org.hexworks.zircon.api.graphics.TileGraphics
 
@@ -49,13 +48,17 @@ class Brain {
         return getBrainItemAt(pos.x, pos.y)
     }
 
+
     private fun calculatePoweredTilesFromScratch(){
 
         val powerSources: MutableSet<Position> = mutableSetOf()
-        brainGrid.loop { x, y ->
-            if (this.isNaturalPowerSource)
-                powerSources.add(Position.create(x, y))
-        }
+
+        for(x in 0 until BRAIN_WIDTH)
+            for(y in 0 until BRAIN_HEIGHT){
+                if(getBrainItemAt(x, y).isNaturalPowerSource)
+                    powerSources.add(Position.create(x, y))
+            }
+
         val checkedPowerSources: MutableSet<Position> = mutableSetOf()
 
         //Clear the poweredByGrid, as we are calculating from scratch
@@ -101,8 +104,8 @@ class Brain {
 
             emanatePowerFrom(pos)
 
-            connectedItems.forEach { pos ->
-                poweredByGrid[pos.x][pos.y].addAll(connectedSources)
+            connectedItems.forEach { position ->
+                poweredByGrid[position.x][position.y].addAll(connectedSources)
             }
             println(connectedItems)
             println(connectedSources)
